@@ -1,0 +1,26 @@
+[project]
+name = "finnnnnnnnnnnnnnnnn"
+version = "0.1.0"
+description = "tinygrad Croco"
+authors = [
+    {name = "finnnnnnnnnnnnnnnnn", email = "106182433+finnnnnnnnnnnnnnnnn@users.noreply.github.com"},
+]
+dependencies = [
+    "pillow>=11.0.0",
+    "tinygrad>=0.9.2",
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
+
+[[tool.pdm.source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[tool.pdm.dev-dependencies]
+dev = []

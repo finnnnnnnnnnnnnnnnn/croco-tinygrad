@@ -1,0 +1,6 @@
+{
+  "files.exclude": {
+    ".pdm-python": true,
+    "pdm.lock": true
+  }
+}
