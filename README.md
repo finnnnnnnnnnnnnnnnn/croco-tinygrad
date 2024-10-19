@@ -1,4 +1,4 @@
-# croco
+# croco-tinygrad
 
 Croco converted to use Tinygrad instead of Pytorch. Training almost certainly does not work, this has only been tested with the metal backend. You probably shouldn't use this.
 
