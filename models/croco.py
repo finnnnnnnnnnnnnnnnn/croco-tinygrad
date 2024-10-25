@@ -2,7 +2,7 @@ import tinygrad
 import tinygrad.nn as nn
 from models.blocks import PatchEmbed, Block, DecoderBlock
 from models.masking import RandomMask
-from models.pos_embed import get_2d_sincos_pos_embed
+from models.pos_embed import get_2d_sincos_pos_embed, RoPE2D
 import numpy as np
 from models.util import normal_init, xavier_uniform
 from functools import partial
@@ -44,12 +44,11 @@ class CroCoNet():
             # pos embedding in each block
             self.rope = None # nothing for cosine 
         elif pos_embed.startswith('RoPE'): # eg RoPE100
-            raise NotImplementedError('Not going to make '+pos_embed) # -> I don't know anything about this and I think it involves CUDA
-            # self.enc_pos_embed = None # nothing to add in the encoder with RoPE
-            # self.dec_pos_embed = None # nothing to add in the decoder with RoPE
-            # if RoPE2D is None: raise ImportError("Cannot find cuRoPE2D, please install it following the README instructions")
-            # freq = float(pos_embed[len('RoPE'):])
-            # self.rope = RoPE2D(freq=freq)
+            self.enc_pos_embed = None # nothing to add in the encoder with RoPE
+            self.dec_pos_embed = None # nothing to add in the decoder with RoPE
+            if RoPE2D is None: raise ImportError("Cannot find cuRoPE2D, please install it following the README instructions")
+            freq = float(pos_embed[len('RoPE'):])
+            self.rope = RoPE2D(freq=freq)
         else:
             raise NotImplementedError('Unknown pos_embed '+pos_embed)
 

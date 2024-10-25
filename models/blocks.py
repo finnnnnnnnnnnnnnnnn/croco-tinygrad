@@ -3,7 +3,7 @@ import collections.abc
 
 import tinygrad.nn as nn
 import tinygrad
-from models.layers import Dropout, GELU
+from models.layers import Dropout
 
 from models.util import cartesian_prod, xavier_uniform
 
@@ -45,7 +45,7 @@ class DropPath:
 
 class Mlp:
     """ MLP as used in Vision Transformer, MLP-Mixer and related networks"""
-    def __init__(self, in_features, hidden_features=None, out_features=None, act_layer=GELU, bias=True, drop=0.):
+    def __init__(self, in_features, hidden_features=None, out_features=None, act_layer=lambda: tinygrad.Tensor.gelu, bias=True, drop=0.):
         super().__init__()
         out_features = out_features or in_features
         hidden_features = hidden_features or in_features
@@ -102,7 +102,7 @@ class Attention:
 class Block:
 
     def __init__(self, dim, num_heads, mlp_ratio=4., qkv_bias=False, drop=0., attn_drop=0.,
-                 drop_path=0., act_layer=GELU, norm_layer=nn.LayerNorm, rope=None):
+                 drop_path=0., act_layer=lambda: tinygrad.Tensor.gelu, norm_layer=nn.LayerNorm, rope=None):
         super().__init__()
         self.norm1 = norm_layer(dim)
         self.attn = Attention(dim, rope=rope, num_heads=num_heads, qkv_bias=qkv_bias, attn_drop=attn_drop, proj_drop=drop)
@@ -159,7 +159,7 @@ class CrossAttention:
 class DecoderBlock:
 
     def __init__(self, dim, num_heads, mlp_ratio=4., qkv_bias=False, drop=0., attn_drop=0.,
-                 drop_path=0., act_layer=GELU, norm_layer=nn.LayerNorm, norm_mem=True, rope=None):
+                 drop_path=0., act_layer=lambda: tinygrad.Tensor.gelu, norm_layer=nn.LayerNorm, norm_mem=True, rope=None):
         super().__init__()
         self.norm1 = norm_layer(dim)
         self.attn = Attention(dim, rope=rope, num_heads=num_heads, qkv_bias=qkv_bias, attn_drop=attn_drop, proj_drop=drop)

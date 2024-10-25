@@ -5,9 +5,9 @@ class Dropout:
   def __call__(self, x):
     return x.dropout(p=self.p)
   
-class GELU:
+class ReLu:
   def __init__(self):
     pass
 
   def __call__(self, x):
-    return x.gelu()
+    return x.relu()
